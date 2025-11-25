@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { CartProvider } from './context/CartContext';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Cart from './components/Cart';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contacts from './pages/Contacts';
+import './styles/App.css';
 
 function App() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState('home');
+
+  console.log('Current page:', currentPage); // Для отладки
+
+  const renderPage = () => {
+    console.log('Rendering page:', currentPage); // Для отладки
+    
+    switch (currentPage) {
+      case 'about':
+        return <About />;
+      case 'contacts':
+        return <Contacts />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      <div className="App">
+        <Header 
+          onCartClick={() => setIsCartOpen(true)}
+          onNavigate={setCurrentPage}
+          currentPage={currentPage}
+        />
+        {renderPage()}
+        <Footer />
+        <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      </div>
+    </CartProvider>
   );
 }
 
