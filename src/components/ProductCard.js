@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onProductClick }) => {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Предотвращаем открытие модалки при клике на кнопку
     setIsAdding(true);
     addToCart(product);
     
@@ -14,8 +15,19 @@ const ProductCard = ({ product }) => {
     }, 300);
   };
 
+  const handleCardClick = () => {
+    if (onProductClick) {
+      onProductClick(product);
+    }
+  };
+
   return (
-    <article className="product-card" data-category={product.category}>
+    <article 
+      className="product-card" 
+      data-category={product.category}
+      onClick={handleCardClick}
+      style={{ cursor: 'pointer' }}
+    >
       <div className="product-image">
         {product.badge && <div className="product-badge">{product.badge}</div>}
         <img 

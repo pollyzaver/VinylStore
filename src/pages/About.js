@@ -1,6 +1,6 @@
 import React from 'react';
 
-const About = () => {
+const About = ({ onNavigate }) => {
   return (
     <main className="main">
       <div className="container">
@@ -148,7 +148,12 @@ const About = () => {
               <p style={{color: 'var(--vinyl-text)', opacity: '0.9', marginBottom: 'var(--space-lg)', fontSize: 'var(--text-lg)'}}>
                 Свяжитесь с нами сегодня и получите бесплатную консультацию по подбору винила.
               </p>
-              <a href="/contacts" className="btn btn-primary">Связаться с нами</a>
+              <button 
+                className="btn btn-primary"
+                onClick={() => onNavigate('contacts', '#contact-form')}
+              >
+                Связаться с нами
+              </button>
             </div>
           </div>
         </section>

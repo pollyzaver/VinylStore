@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import ProductModal from '../components/ProductModal'
 
-const Home = () => {
+const Home = ({ onNavigate }) => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const itemsPerPage = 9;
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Ref для секции каталога
   const catalogRef = useRef(null);
@@ -16,8 +19,14 @@ const Home = () => {
     { key: 'rock', label: 'Рок' },
     { key: 'electronic', label: 'Электроника' },
     { key: 'alternative', label: 'Альтернатива' },
-    { key: 'metal', label: 'Метал' }
+    { key: 'metal', label: 'Метал' },
+    { key: 'pop', label: 'Поп' }
   ];
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     if (activeFilter === 'all') {
@@ -62,7 +71,12 @@ const Home = () => {
             <p className="hero-subtitle">Наслаждайтесь аутентичным звучанием с 2023 года</p>
             <div className="hero-actions">
               <a href="#catalog" className="btn btn-primary">Смотреть каталог</a>
-              <a href="/about" className="btn btn-white">Узнать больше</a>
+              <button 
+                className="btn btn-white"
+                onClick={() => onNavigate('about')} // ← ИСПОЛЬЗУЕМ onNavigate
+              >
+                Узнать больше
+              </button>
             </div>
           </div>
         </div>
@@ -118,7 +132,7 @@ const Home = () => {
 
             <div className="catalog-grid">
               {currentProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} onProductClick={handleProductClick} />
               ))}
             </div>
 
@@ -207,12 +221,22 @@ const Home = () => {
             <h2>Готовы начать коллекцию?</h2>
             <p>Получите бесплатную консультацию по подбору винила от наших экспертов</p>
             <div className="cta-actions">
-              <a href="/contacts" className="btn btn-primary">Связаться с нами</a>
+              <button 
+                className="btn btn-primary"
+                onClick={() => onNavigate('contacts', '#contact-form')}
+              >
+                Связаться с нами
+              </button>
               <a href="tel:+79501893557" className="btn btn-white">Позвонить</a>
             </div>
           </div>
         </div>
       </section>
+      <ProductModal 
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </main>
   );
 };

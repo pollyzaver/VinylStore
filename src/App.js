@@ -19,11 +19,11 @@ function App() {
     
     switch (currentPage) {
       case 'about':
-        return <About />;
+        return <About onNavigate={setCurrentPage} />;
       case 'contacts':
         return <Contacts />;
       default:
-        return <Home />;
+        return <Home onNavigate={setCurrentPage} />;
     }
   };
 
