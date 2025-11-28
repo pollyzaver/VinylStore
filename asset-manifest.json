@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/VinylStore/static/css/main.47f64692.css",
+    "main.css": "/VinylStore/static/css/main.4e344f02.css",
     "main.js": "/VinylStore/static/js/main.7dd55aa9.js",
     "index.html": "/VinylStore/index.html",
-    "main.47f64692.css.map": "/VinylStore/static/css/main.47f64692.css.map",
+    "main.4e344f02.css.map": "/VinylStore/static/css/main.4e344f02.css.map",
     "main.7dd55aa9.js.map": "/VinylStore/static/js/main.7dd55aa9.js.map"
   },
   "entrypoints": [
-    "static/css/main.47f64692.css",
+    "static/css/main.4e344f02.css",
     "static/js/main.7dd55aa9.js"
   ]
 }
